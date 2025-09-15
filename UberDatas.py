@@ -15,7 +15,7 @@ dataset.head()
 #dataset.info()
 
 # data processing
-dataset["PURPOSE"] = dataset["PURPOSE"].fillna("empty") # null values to 'empty'
+dataset["PURPOSE"] = dataset["PURPOSE"].fillna("Unknown") # null values: customer didn't provide a purpose
 dataset["START_DATE"] = pd.to_datetime(dataset["START_DATE"], errors="coerce") # object to datetime
 dataset["END_DATE"] = pd.to_datetime(dataset["END_DATE"], errors="coerce") # object to datetime
 
@@ -102,9 +102,32 @@ sns.heatmap(numeric_dataset.corr(),
             linewidths = .5,
             annot = True
             )
-
 # display
 plt.show()
+
+# Line graph for monthly data
+
+# extract months from start_date and map the months
+dataset["MONTH"] = pd.DatetimeIndex(dataset["START_DATE"]).month
+month_label = {1.0: 'Jan', 2.0: 'Feb', 3.0: 'Mar', 4.0: 'Apr', 5.0: 'May', 6.0: 'Jun',
+               7.0: 'Jul', 8.0: 'Aug', 9.0: 'Sep', 10.0:'Oct', 11.0: 'Nov', 12.0:'Dec'}
+dataset["MONTH"] = dataset.MONTH.map(month_label)
+
+# Count the number of rides in each month (without sorting by count)
+mon = dataset.MONTH.value_counts(sort=False)
+
+# Month total rides count vs Month rides count
+df = pd.DataFrame({"MONTH": mon.values,
+                   "VALUE COUNT": dataset.groupby("MONTH", sort=False)
+                   ["MILES"].max()}
+                  )
+p = sns.lineplot(data = df)
+p.set(xlabel = "Month", ylabel = "VALUE COUNT")
+p.set_title("Month total rides count vs Month rides count")
+# display
+plt.show()
+
+
 
 
 
