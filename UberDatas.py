@@ -1,11 +1,7 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
-from datetime import datetime
 from sklearn.preprocessing import OneHotEncoder
-
-
 
 # import dataset
 dataset = pd.read_csv("UberDataset.csv")
@@ -127,7 +123,33 @@ p.set_title("Month total rides count vs Month rides count")
 # display
 plt.show()
 
+# Bar plot: Number of Rides by Day of the Week
+# extract days from start_date and map the days
+dataset["DAYS"] = dataset.START_DATE.dt.weekday
+day_label = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
+dataset["DAYS"] = dataset["DAYS"].map(day_label)
+# number of rides per day
+day_label = dataset.DAYS.value_counts()
+sns.barplot(x = day_label.index, y = day_label)
+plt.xlabel("Days")
+plt.ylabel("Number of Rides")
+plt.title("Rides vs Days", size = 14)
+plt.show()
 
+# Boxplot: Distribution of Ride Distances (MILES)
+sns.boxplot(dataset["MILES"])
+plt.title("Boxplot of Ride Distances")
+plt.show()
+# zoom-in
+sns.boxplot(dataset[dataset["MILES"] < 100]["MILES"])
+plt.show()
+
+# Histogram (Distribution Plot): Miles under 40
+sns.displot(dataset[dataset["MILES"] < 40]["MILES"], kde = True)
+plt.xlabel("Miles")
+plt.ylabel("Number of Rides")
+plt.title("Distribution of Rides Under 40 Miles")
+plt.show()
 
 
 
