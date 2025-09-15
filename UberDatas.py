@@ -5,7 +5,7 @@ import seaborn as sns
 from datetime import datetime
 from sklearn.preprocessing import OneHotEncoder
 
-from numpy.ma.extras import unique
+
 
 # import dataset
 dataset = pd.read_csv("UberDataset.csv")
@@ -43,6 +43,7 @@ for col in object_cols:
 
 # creating visuals
 plt.figure(figsize = (12,12))
+plt.suptitle("Uber Ride Visualizations", fontsize=16)
 # CATEGORY bar graph
 plt.subplot(3,2,1)
 sns.countplot(data=dataset, y = "CATEGORY", hue = "CATEGORY")
@@ -70,5 +71,41 @@ plt.title("Purpose VS Categories")
 # display
 plt.tight_layout()
 plt.show()
+
+object_cols = ["CATEGORY", "PURPOSE"]
+# Set up a one-hot encoder that turns categories into numbers,
+# and prevents errors from new/unseen values.
+OH_encoder = OneHotEncoder(sparse_output = False, handle_unknown = "ignore")
+
+# One-hot encode the object (categorical) columns and store in a new DataFrame
+OH_cols = pd.DataFrame(OH_encoder.fit_transform(dataset[object_cols]))
+
+# Keep the original row indices
+OH_cols.index = dataset.index
+
+# Assign column names to the encoded columns
+OH_cols.columns = OH_encoder.get_feature_names_out()
+
+# Drop the original categorical columns from the dataset
+df_final = dataset.drop(object_cols, axis=1)
+
+# Concatenate the dataset with the new one-hot encoded columns
+dataset = pd.concat([df_final, OH_cols], axis=1)
+
+# using heatmap find the correlation btwn the columns
+numeric_dataset = dataset.select_dtypes(include = ["number"])
+plt.figure(figsize=(10, 8))
+plt.title("Correlation Heatmap of Numeric Features", fontsize=14)
+sns.heatmap(numeric_dataset.corr(),
+            cmap = "YlOrRd",
+            fmt = ".2f",
+            linewidths = .5,
+            annot = True
+            )
+
+# display
+plt.show()
+
+
 
 
