@@ -1,7 +1,7 @@
-# Uber Ride Data Analysis
+# :car: Uber Ride Data Analysis 🚙
 This project performs exploratory data analysis (EDA) and visualization on a dataset of Uber rides. It includes data cleaning, feature engineering, categorical encoding, and a variety of plots to uncover insights about ride purpose, timing, and distance.
 
-# Dataset Description
+# Dataset Description 📋
 A sample of Uber ride data with the following columns:
 | Column Name  | Description                           | Type     | Nulls |
 |--------------|----------------------------------------|----------|-------|
@@ -13,13 +13,13 @@ A sample of Uber ride data with the following columns:
 | MILES        | Distance of the ride in miles         | float64  | No    |
 | PURPOSE      | Purpose of the ride (e.g., Meeting)   | object   | Yes   |
 
-# Features Engineered
+# Features Engineered :hammer_and_wrench:
 - date and time extracted from START_DATE
 - day-night: time-of-day classification (Morning, Afternoon, Evening, Night)
 - MONTH: mapped month label from date
 - DAYS: mapped weekday name from date
 
-# Visualization
+# Visualization :bar_chart:
 1. Categorical Distributions
     * Count of rides by CATEGORY
     * Count of rides by PURPOSE
@@ -40,13 +40,13 @@ A sample of Uber ride data with the following columns:
     - Zoomed Boxplot: Miles under 100
     - Histogram: Miles under 40
 
-# Data Preprocessing
+# Data Preprocessing ⚙️
 - Missing PURPOSE values replaced with 'Unknown'
 - Converted START_DATE and END_DATE to datetime
 - Dropped rows with nulls or duplicates
 
-# Encoding
+# Encoding 💻
 Used OneHotEncoding to convert categorical variables CATEGORY and PURPOSE into numeric features for correlation analysis.
 
-# License
+# License 📃
 This project is for educational and personal learning purposes.
