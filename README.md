@@ -39,6 +39,26 @@ A sample of Uber ride data with the following columns:
     - Boxplot: Ride distances (MILES)
     - Zoomed Boxplot: Miles under 100
     - Histogram: Miles under 40
+  
+# Insights & Observations 👀
+
+- From Count Plots:
+    - Most rides were booked for business purposes.
+    - The most common purposes for booking were Meetings and Meal/Entertainment.
+    - The majority of rides occurred between 10 AM – 5 PM (Afternoon).
+
+- From Heatmap:
+    - Business and Personal ride categories were highly negatively correlated, confirming earlier findings.
+    - Other features did not show strong correlations with each other.
+
+- From Monthly Trends:
+    - Ride counts were irregular across months.
+    - Fewer rides were observed in November, December, and January, likely due to winter in Florida, US.
+
+- From Distance Analysis:
+    - Most cabs were booked for short distances around 4–5 miles.
+    - The majority of rides were within 0–20 miles.
+    - Very few rides exceeded 20 miles.
 
 # Data Preprocessing ⚙️
 - Missing PURPOSE values replaced with 'Unknown'
