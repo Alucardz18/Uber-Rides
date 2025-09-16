@@ -7,8 +7,8 @@ from sklearn.preprocessing import OneHotEncoder
 dataset = pd.read_csv("UberDataset.csv")
 dataset.head()
 
-#print(dataset.shape)
-#dataset.info()
+print(dataset.shape)
+dataset.info()
 
 # data processing
 dataset["PURPOSE"] = dataset["PURPOSE"].fillna("Unknown") # null values: customer didn't provide a purpose
